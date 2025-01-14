@@ -1,0 +1,11 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: inventory
+  namespace: inventory
+  annotations:
+    kubernetes.io/ingress.class: kong
+username: inventory
+credentials:
+- inventory-jwt-credential
+- inventory-acl-credential

@@ -1,0 +1,11 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: rate-limit-5-min
+  namespace: inventory
+  annotations:
+    kubernetes.io/ingress.class: kong
+config:
+  minute: 5 # 5 times/minute
+  policy: local
+plugin: rate-limiting

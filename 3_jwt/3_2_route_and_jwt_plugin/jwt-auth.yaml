@@ -1,0 +1,8 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: jwt-auth
+  namespace: inventory
+# config:
+  # key_claim_name: "got-verified" # in header
+plugin: jwt

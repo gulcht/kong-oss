@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  namespace: order
+  labels:
+    app: order
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      hostAliases:
+      - ip: "10.10.112.28"
+        hostnames:
+        - "api-test.got.co.th"
+      containers:
+      - name: order
+        image: gulcht/order-service:latest
+        ports:
+        - containerPort: 3000
+        env:
+        - name: JWT_ALGORITHM
+          valueFrom:
+            secretKeyRef:
+              name: order-jwt-credential
+              key: algorithm
+        - name: JWT_KEY
+          valueFrom:
+            secretKeyRef:
+              name: order-jwt-credential
+              key: key
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: order-jwt-credential
+              key: secret
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-svc
+  namespace: order
+spec:
+  selector:
+    app: order
+  ports:
+    - protocol: TCP
+      port: 3000
+      targetPort: 3000
+  type: ClusterIP

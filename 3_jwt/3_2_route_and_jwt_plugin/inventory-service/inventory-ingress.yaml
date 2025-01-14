@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: inventory
+  namespace: inventory
+  annotations:
+    konghq.com/strip-path: "true"
+    konghq.com/plugins: jwt-auth, cors-plugin-inventory, rate-limit-5-min, admin-acl
+spec:
+  ingressClassName: kong
+  rules:
+  - host: api-test.got.co.th
+    http:
+      paths:
+      - path: /inventory
+        pathType: Prefix
+        backend:
+          service:
+            name: inventory
+            port:
+              number: 8080
+
+

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: user-jwt-credential
+  namespace: inventory
+  labels:
+    konghq.com/credential: jwt
+stringData:
+  algorithm: HS256
+  key: got-verify.co.th # claims_name : iss
+  secret: 002d190c92bdaaad45846ff61850475851b85aff1326ce94c4cd8a7deb8a4376 # secret

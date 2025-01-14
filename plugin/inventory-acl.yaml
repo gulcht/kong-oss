@@ -1,0 +1,8 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: inventory-acl
+  namespace: inventory
+plugin: acl
+config:
+  allow: ['order'] # allow group

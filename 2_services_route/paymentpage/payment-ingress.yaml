@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: payment-nginx
+  namespace: payment-nginx
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  rules:
+    - host: api-test.got.co.th 
+      http:
+          paths:
+          - path: /payment
+            pathType: Prefix
+            backend:
+              service:
+                name: payment-svc
+                port:
+                  number: 80
+

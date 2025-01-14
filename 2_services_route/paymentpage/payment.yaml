@@ -1,0 +1,38 @@
+# nginx-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-deployment
+  namespace: payment-nginx
+  labels:
+    app: payment-nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-nginx
+  template:
+    metadata:
+      labels:
+        app: payment-nginx
+    spec:
+      containers:
+      - name: payment-nginx
+        image: gulcht/payment-nginx:latest
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: payment-nginx
+  name: payment-svc
+spec:
+  selector:
+    app: payment-nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: ClusterIP
+

@@ -1,0 +1,20 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: order
+  namespace: order
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  ingressClassName: kong
+  rules:
+  - host: api-test.got.co.th
+    http:
+      paths:
+      - path: /order
+        pathType: Prefix
+        backend:
+          service:
+            name: order-svc
+            port:
+              number: 3000

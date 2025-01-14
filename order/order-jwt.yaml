@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: order-jwt-credential
+  namespace: order
+  labels:
+    konghq.com/credential: jwt
+stringData:
+  algorithm: HS256
+  key: got-verify-order.co.th # claims_name : iss
+  secret: bLcQE03xJEwGwenk7hg7yLPbBEh2LY9h # secret

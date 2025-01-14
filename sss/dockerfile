@@ -1,0 +1,19 @@
+# ใช้ Node.js
+FROM node:18
+
+# ตั้ง working directory
+WORKDIR /app
+
+# คัดลอกไฟล์ package.json และ package-lock.json
+COPY package*.json ./
+
+# ติดตั้ง dependencies
+RUN npm install
+# คัดลอกไฟล์ source code
+COPY . .
+
+# เปิด port 
+EXPOSE 3000
+
+# เริ่มแอป
+CMD ["npm", "start"]
